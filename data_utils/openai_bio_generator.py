@@ -1,6 +1,9 @@
-import openai
+from dotenv import load_dotenv
+from openai import OpenAI
+import os
 
-openai.api_key="<REDACTED>"
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 prompt = """  Lütfen tamamen yapay ve doğal Türkçe NER verisi üret. Veride aşağıdaki varlık türleri olacak: PHONE, TCNO, PERSON, ORG, DATE.
 
@@ -72,7 +75,7 @@ sentence_id,token,label
 
 """
 
-response = openai.chat.completions.create(
+response = client.chat.completions.create(
     model="gpt-4",
     messages=[{"role": "user", "content": prompt}],
     temperature=0.7,

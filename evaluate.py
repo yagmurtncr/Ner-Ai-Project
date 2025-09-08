@@ -10,7 +10,7 @@ import scipy.special
 
 from sklearn.metrics import precision_recall_curve, f1_score, confusion_matrix, accuracy_score
 from transformers import Trainer, AutoModelForTokenClassification
-from preprocessing import get_tokenized_datasets
+from preprocess import get_tokenized_datasets
 from seqeval.metrics import classification_report as seqeval_report
 
 def evaluate_per_entity_thresholds(probabilities, true_labels, label_list, threshold_list=None):
