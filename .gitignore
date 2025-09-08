@@ -73,11 +73,9 @@ Thumbs.db
 *.html.cache
 
 # =========================
-# Data Files (Optional)
-# Uncomment to ignore raw data
+# Data Files 
 # =========================
-# raw_data/*.csv
-# raw_data/*.conll
+raw_data/
 
 # =========================
 # Test & Development Files
