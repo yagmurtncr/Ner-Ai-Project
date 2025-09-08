@@ -1,0 +1,87 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+*.egg
+*.log
+
+# =========================
+# Jupyter Notebooks
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# IDEs & Editors
+# =========================
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
+
+# =========================
+# Model Checkpoints & Outputs
+# =========================
+ner_model/
+results/
+logs/
+tmp_trainer/
+visual_results/
+visualizations/
+
+# =========================
+# Environments
+# =========================
+ner-env/
+.env
+.env.*
+
+# =========================
+# Node.js (Not needed anymore)
+# =========================
+node_modules/
+package*.json
+
+# =========================
+# Operating System
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Docker
+# =========================
+*.pid
+*.sock
+
+# =========================
+# Temporary & Backup Files
+# =========================
+*.tmp
+*.bak
+*.swp
+~*
+
+# =========================
+# HTML Cache
+# =========================
+*.html.cache
+
+# =========================
+# Data Files (Optional)
+# Uncomment to ignore raw data
+# =========================
+# raw_data/*.csv
+# raw_data/*.conll
+
+# =========================
+# Test & Development Files
+# =========================
+*_test.py
+test_*.py
+*.test.py 

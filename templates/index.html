@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Named Entity Recognition Demo</title>
+    <style>
+        /* Genel sayfa ayarları */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f9f9f9;  /* Açık gri arka plan */
+            color: #333;           /* Yazı rengi koyu gri */
+        }
+
+        /* Form ve tablo için responsive container */
+        form, table {
+            max-width: 800px;      /* Maksimum genişlik */
+            margin: auto;          /* Ortala */
+            background: white;     /* Beyaz arka plan */
+            padding: 20px;         /* İç boşluk */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);  /* Hafif gölge */
+            border-radius: 8px;    /* Yuvarlak köşeler */
+        }
+
+        /* Textarea stil ayarları */
+        textarea {
+            width: 100%;           /* Tam genişlik */
+            height: 100px;         /* Yükseklik */
+            font-size: 16px;
+            padding: 10px;         /* İç boşluk */
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            resize: vertical;      /* Yalnızca dikey boyutlandırma */
+            transition: border-color 0.3s; /* Geçiş efekti */
+        }
+        textarea:focus {
+            border-color: #007bff; /* Mavi çerçeve */
+            outline: none;         /* Focus çizgisi kaldır */
+        }
+
+        /* Butonlar genel stili */
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            background-color: #007bff; /* Mavi buton rengi */
+            color: white;
+            transition: background-color 0.3s, transform 0.2s;
+            position: relative;    /* Spinner için pozisyon */
+            min-width: 120px;      /* Minimum genişlik */
+        }
+        /* Hover efekti: renk koyulaşır ve hafif büyür */
+        button:hover:not(:disabled) {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        /* Buton devre dışı ise grileşir ve tıklanmaz */
+        button:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+
+        /* Buton içindeki spinner stili */
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.3); /* Açık renk halka */
+            border-top: 3px solid white;             /* Dönen üst halka beyaz */
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spin 1s linear infinite;      /* Dönen animasyon */
+            position: absolute;                      /* Buton içinde konumlandır */
+            top: 50%;                               /* Dikey ortala */
+            left: 16px;                             /* Soldan boşluk */
+            transform: translateY(-50%);
+        }
+        /* Spinner animasyonu tanımı */
+        @keyframes spin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+
+        /* Tablo stili */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse; /* Kenarlıkların iç içe geçmemesi için */
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #aaa;
+            padding: 8px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        th {
+            background-color: #eee;
+        }
+        /* Tablo satırı üzerine gelince arka plan rengi değişir */
+        tbody tr:hover {
+            background-color: #d3e7ff;
+        }
+
+        /* Responsive - mobil görünüm için */
+        @media (max-width: 600px) {
+            body {
+                margin: 10px;
+            }
+            form, table {
+                padding: 15px;
+            }
+            button {
+                width: 100%;        /* Buton tam genişlik */
+                margin-top: 12px;
+                min-width: unset;   /* Minimum genişlik kaldır */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center;">Named Entity Recognition Demo</h1>
+
+    <form method="post" id="ner-form">
+        <label for="input_text">Metin:</label><br />
+        <textarea id="input_text" name="input_text" required>{{ input_text }}</textarea><br /> 
+        <!-- Backend, sayfa render edilirken input_text değişkeni ile textarea'yı doldurabilir -->
+
+        <button type="submit" id="submit-btn">
+            Gönder
+            <!-- Spinner buton içine JS ile eklenip kaldırılacak -->
+        </button>
+        <button type="button" onclick="generateText()" id="generate-btn">AI ile Oluştur</button>
+    </form>
+
+    {% if entities %}
+    <h2 style="max-width:800px; margin:auto; margin-top:40px;">Tanımlanan Varlıklar</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Kelime</th>
+                <th>Varlık Tipi</th>
+                <th>Başlangıç</th>
+                <th>Bitiş</th>
+                <th>Skor</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ent in entities %}
+            <tr>
+                <td>{{ ent.word }}</td>    <!-- Varlık kelimesi -->
+                <td>{{ ent.entity_group }}</td>  <!-- Varlık tipi -->
+                <td>{{ ent.start }}</td>   <!-- Metindeki başlangıç indeksi -->
+                <td>{{ ent.end }}</td>     <!-- Metindeki bitiş indeksi -->
+                <td>{{ ent.score }}</td>   <!-- Modelin verdiği olasılık skoru -->
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    <script>
+        // Form gönderildiğinde submit butonunu devre dışı bırak ve spinner göster
+        document.getElementById('ner-form').addEventListener('submit', function(event) {
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;  // Butonu pasif yap
+
+            // Spinner elementi oluştur
+            const spinner = document.createElement('span');
+            spinner.classList.add('spinner');
+            spinner.id = 'btn-spinner';
+
+            // Spinner'ı butonun başına ekle
+            submitBtn.prepend(spinner);
+        });
+
+        // AI ile cümle oluşturma fonksiyonu (asenkron)
+        async function generateText() {
+            const generateBtn = document.getElementById('generate-btn');
+
+            try {
+                generateBtn.disabled = true;             // Butonu pasif yap
+                generateBtn.textContent = "Yükleniyor...";  // Buton yazısını değiştir
+
+                // Backend'e POST isteği gönder
+                const response = await fetch('/generate_sentence', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: "" })   // Boş metin gönderiliyor
+                });
+
+                // Eğer istek başarısızsa hata göster
+                if (!response.ok) {
+                    alert("AI cümle oluşturulurken hata oluştu.");
+                    generateBtn.disabled = false;
+                    generateBtn.textContent = "AI ile Oluştur";
+                    return;
+                }
+
+                // Cevabı JSON olarak ayrıştır
+                const data = await response.json();
+
+                // Textarea içeriğini API'den gelen cümle ile güncelle
+                document.getElementById('input_text').value = data.sentence;
+
+                // Butonu tekrar aktif et ve yazısını eski haline getir
+                generateBtn.disabled = false;
+                generateBtn.textContent = "AI ile Oluştur";
+            } catch (error) {
+                // Hata durumunda kullanıcıya mesaj göster
+                alert("AI cümle oluşturulurken hata oluştu: " + error.message);
+                generateBtn.disabled = false;
+                generateBtn.textContent = "AI ile Oluştur";
+            }
+        }
+    </script>
+</body>
+</html>

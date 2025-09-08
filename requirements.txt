@@ -1,0 +1,38 @@
+#openai ile veri üretmek için
+openai
+
+# Transformers ve Datasets
+transformers==4.40.0
+datasets==2.19.0
+accelerate>=0.21.0
+
+# Tokenizer
+tokenizers==0.19.1
+
+# PyTorch (CPU için)
+torch==2.2.2
+
+# Veri işleme
+pandas==2.2.2
+numpy==1.26.4
+seaborn==0.13.2  # confusion matrix çizimi için gerekli
+
+# Değerlendirme metrikleri
+seqeval==1.2.2
+scikit-learn==1.4.2
+
+# Model eğitimi için ek yardımcılar
+tqdm==4.66.4
+tensorboard==2.16.2  # plot_training_logs fonksiyonu için gerekli
+
+# API ve servis için 
+fastapi==0.111.0
+uvicorn==0.30.1
+pydantic
+
+# Çevresel uyum için
+python-dotenv==1.0.1
+
+# Geliştirme ortamı için 
+jupyterlab==4.2.1
+

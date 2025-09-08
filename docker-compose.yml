@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  ner-api:
+    image: ner-api:latest           # Yerel olarak oluşturduğun imaj
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"                 # Host 8000 -> Container 8000
+    restart: unless-stopped
+    environment: []
+    volumes:
+      - ./ner_model:/app/ner_model  # Yerel ner_model klasörünü container'a bağla (opsiyonel)
+      - ./app.py:/app/app.py        # Kodda hızlı değişiklik için bağlayabilirsin (opsiyonel)
+
+    command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+
+
+#build kısmı: Dockerfile'ın bulunduğu dizini gösteriyor. Bu sayede docker-compose build ile imajı kendin oluşturabilirsin.
+#ports: Host makinede 8000 portunu container'ın 8000 portuna yönlendirdik.
+#restart: unless-stopped: Container beklenmedik durursa yeniden başlatılır.
+#volumes (opsiyonel): Model dosyaları ve app.py dosyasını dışarıdan bağlayarak container içinde değişiklik yapmanı sağlar. İstersen kaldırabilirsin.
+#environment: Çalışma zamanı ortam değişkenlerini buraya ekleyebilirsin. Şu anda senin container ortamında özel bir değişken yok.
+
+#docker-compose up --build   --->Bu komut hem imajı build eder hem de container'ı çalıştırır.
