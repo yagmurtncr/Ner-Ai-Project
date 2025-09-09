@@ -129,10 +129,3 @@ Ner_Project/
 ---
 
 
-
-### 🌟 Bu projeyi beğendiyseniz yıldız verin!
-
----
-
-## 🏷️ Etiketler
-`türkçe-nlp` `named-entity-recognition` `bert` `fastapi` `openai` `machine-learning` `docker` `nlp` `turkish-language` 
