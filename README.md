@@ -128,28 +128,7 @@ Ner_Project/
 
 ---
 
-## 🔧 Geliştirme
-Katkılarınızı memnuniyetle karşılıyoruz! Fikirlerinizi tartışmak için issue açın veya review için pull request gönderin. Büyük değişiklikler için önce tartışma başlatın.
 
-### 🛠️ Geliştirme Ortamını Kurma:
-```bash
-# Development dependencies yükle
-pip install -r requirements.txt
-
-# Pre-commit hooks kurulumu (isteğe bağlı)
-pip install pre-commit
-pre-commit install
-```
-
----
-
-## 📜 Lisans
-MIT License © 2025 Yağmur Tuncer
-
----
-
-## 📞 İletişim
-Sorularınız veya iş birliği için: [y.tuncer1004@gmail.com](mailto:y.tuncer1004@gmail.com)
 
 ### 🌟 Bu projeyi beğendiyseniz yıldız verin!
 
