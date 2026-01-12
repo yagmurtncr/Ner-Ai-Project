@@ -12,7 +12,6 @@ Türkçe metinler için gelişmiş Varlık İsmi Tanıma (NER) ve yapay zeka des
 - [📁 Klasör Yapısı](#klasör-yapısı)
 - [🔧 Geliştirme](#geliştirme)
 - [📜 Lisans](#lisans)
-- [📞 İletişim](#iletişim)
 
 ---
 
