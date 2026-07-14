@@ -1,5 +1,17 @@
 # 🤖 NER + AI Text Generation
 
+<p>
+  <img src="https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/BERT-Fine--tuned-FFD21E?logo=huggingface&logoColor=black" />
+  <img src="https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white" />
+  <img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white" />
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" />
+</p>
+
+> **Turkish Named-Entity Recognition (NER) & AI text generation platform** — fine-tuned BERT
+> with entity-specific threshold optimization, a FastAPI web UI, OpenAI GPT-based synthetic
+> data generation, and rich evaluation/visualization tools. *Documentation below is in Turkish.*
+
 Türkçe metinler için gelişmiş Varlık İsmi Tanıma (NER) ve yapay zeka destekli cümle üretim platformu. Fine-tuned BERT modeli, varlık-spesifik eşik optimizasyonu, FastAPI web arayüzü, OpenAI GPT entegrasyonu ve kapsamlı görselleştirme araçları içerir.
 
 ---
@@ -40,7 +52,7 @@ Araştırmacılar, geliştiriciler ve gelişmiş NER yetenekleri arayan kurumlar
 1. **Depoyu klonlayın:**
    ```bash
    git clone https://github.com/yagmurtncr/Ner-Ai-Project.git
-   cd Ner_Project
+   cd Ner-Ai-Project
    ```
 
 2. **Sanal ortam oluşturun (önerilen):**
