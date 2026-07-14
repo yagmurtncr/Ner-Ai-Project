@@ -47,6 +47,30 @@ Araştırmacılar, geliştiriciler ve gelişmiş NER yetenekleri arayan kurumlar
 
 ---
 
+## 🏗️ Mimari (Architecture)
+
+```mermaid
+flowchart LR
+    subgraph Data["Synthetic data generation"]
+        GPT["OpenAI GPT"] --> SYN["Synthetic Turkish sentences"]
+        SYN --> TRAIN["Training set (BIO tags)"]
+    end
+
+    TRAIN --> FT["Fine-tune BERT (token classification)"]
+    FT --> MODEL[("NER model")]
+
+    subgraph Inference["Inference"]
+        TXT["Input text"] --> MODEL
+        MODEL --> THRESH["Entity-specific thresholding"]
+        THRESH --> ENT["Entities: PERSON · ORG · TCNO · PHONE · DATE"]
+    end
+
+    ENT --> UI["FastAPI web UI"]
+    ENT --> VIZ["Visualizations (PR curves, confusion matrix)"]
+```
+
+---
+
 ## 🚀 Kurulum
 
 1. **Depoyu klonlayın:**
