@@ -1,6 +1,7 @@
 import pandas as pd
+from datasets import Dataset, DatasetDict
 from transformers import AutoTokenizer
-from datasets import DatasetDict, Dataset
+
 
 def get_tokenized_datasets(train_path, dev_path, test_path, tokenizer_name="dbmdz/bert-base-turkish-cased"):
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_name, use_fast=True)
@@ -41,7 +42,7 @@ def get_tokenized_datasets(train_path, dev_path, test_path, tokenizer_name="dbmd
     test_sents, test_labels = load_and_group(test_path)
 
     # Etiketleri çıkar
-    all_labels = sorted(set(label for seq in train_labels for label in seq))
+    all_labels = sorted({label for seq in train_labels for label in seq})
     label2id = {label: i for i, label in enumerate(all_labels)}
     id2label = {i: label for label, i in label2id.items()}
 

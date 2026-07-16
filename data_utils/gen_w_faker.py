@@ -1,6 +1,6 @@
-from faker import Faker
 import random
-from datetime import date
+
+from faker import Faker
 
 faker = Faker('tr_TR')
 

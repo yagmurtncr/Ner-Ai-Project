@@ -1,6 +1,7 @@
 # 🤖 NER + AI Text Generation
 
 <p>
+  <img src="https://github.com/yagmurtncr/Ner-Ai-Project/actions/workflows/ci.yml/badge.svg" alt="CI" />
   <img src="https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/BERT-Fine--tuned-FFD21E?logo=huggingface&logoColor=black" />
   <img src="https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white" />

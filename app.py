@@ -1,15 +1,15 @@
-from fastapi import FastAPI, Request, Form
+import json
+import os
+
+import openai
+from dotenv import load_dotenv
+from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
-from typing import List
 from transformers import AutoModelForTokenClassification, AutoTokenizer, pipeline
-import openai
-import os
-import json
-from dotenv import load_dotenv
+
 from postprocess import postprocess_entities
-import re
 
 load_dotenv()
 
@@ -31,7 +31,7 @@ ner_pipeline = pipeline("ner", model=model, tokenizer=tokenizer, aggregation_str
 # Thresholdları JSON dosyasından oku
 threshold_path = "visual_results/best_entity_thresholds.json"
 try:
-    with open(threshold_path, "r", encoding="utf-8") as f:
+    with open(threshold_path, encoding="utf-8") as f:
         raw_thresholds = json.load(f)
         ENTITY_THRESHOLDS = {k.upper(): float(v) for k, v in raw_thresholds.items()}
     print(f"\n✅ Thresholdlar yüklendi: {ENTITY_THRESHOLDS}")
@@ -56,7 +56,7 @@ class Entity(BaseModel):
     score: float
 
 class OutputData(BaseModel):
-    entities: List[Entity]
+    entities: list[Entity]
 
 @app.get("/", response_class=HTMLResponse)
 def read_form(request: Request):

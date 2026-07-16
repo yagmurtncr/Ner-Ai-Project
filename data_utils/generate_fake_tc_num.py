@@ -1,6 +1,7 @@
 import random
 import re
 
+
 def generate_phone_number():
     prefix = f"05{random.randint(30, 59)}"
     part1 = f"{random.randint(100, 999)}"
@@ -61,25 +62,26 @@ phone_templates = [
     "İrtibat numarası olarak {} verilmiştir."
 ]
 
-# Veri üretimi
-sentences = []
-sentence_id = 9287
+if __name__ == "__main__":
+    # Veri üretimi
+    sentences = []
+    sentence_id = 9287
 
-for _ in range(3355):
-    tc = generate_tc_number()
-    template = random.choice(tc_templates)
-    text = template.format(tc)
-    sentences += create_bio_sentence(sentence_id, text, tc, "TCNO")
-    sentence_id += 1
+    for _ in range(3355):
+        tc = generate_tc_number()
+        template = random.choice(tc_templates)
+        text = template.format(tc)
+        sentences += create_bio_sentence(sentence_id, text, tc, "TCNO")
+        sentence_id += 1
 
-for _ in range(3355):
-    phone = generate_phone_number()
-    template = random.choice(phone_templates)
-    text = template.format(phone)
-    sentences += create_bio_sentence(sentence_id, text, phone, "PHONE")
-    sentence_id += 1
+    for _ in range(3355):
+        phone = generate_phone_number()
+        template = random.choice(phone_templates)
+        text = template.format(phone)
+        sentences += create_bio_sentence(sentence_id, text, phone, "PHONE")
+        sentence_id += 1
 
-# Kaydet
-with open("bio_tc_phone_4081_train.csv", "w", encoding="utf-8") as f:
-    for line in sentences:
-        f.write(line + "\n")
+    # Kaydet
+    with open("bio_tc_phone_4081_train.csv", "w", encoding="utf-8") as f:
+        for line in sentences:
+            f.write(line + "\n")

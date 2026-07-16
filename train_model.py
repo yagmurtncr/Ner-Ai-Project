@@ -1,8 +1,15 @@
-from transformers import AutoModelForTokenClassification, TrainingArguments, Trainer, DataCollatorForTokenClassification
-import numpy as np
-from sklearn.metrics import precision_recall_fscore_support, accuracy_score
-from preprocessing import get_tokenized_datasets
 from collections import Counter
+
+import numpy as np
+from preprocessing import get_tokenized_datasets
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+from transformers import (
+    AutoModelForTokenClassification,
+    DataCollatorForTokenClassification,
+    Trainer,
+    TrainingArguments,
+)
+
 
 def compute_metrics(p, id2label):
     predictions, labels = p
@@ -12,9 +19,9 @@ def compute_metrics(p, id2label):
     true_preds_flat = []
 
     for label_seq, pred_seq in zip(labels, preds):
-        for l, p in zip(label_seq, pred_seq):
-            if l != -100:
-                true_labels_flat.append(id2label[l])
+        for lbl, p in zip(label_seq, pred_seq):
+            if lbl != -100:
+                true_labels_flat.append(id2label[lbl])
                 true_preds_flat.append(id2label[p])
 
     precision, recall, f1, _ = precision_recall_fscore_support(true_labels_flat, true_preds_flat, average="weighted")
@@ -84,8 +91,8 @@ if __name__ == "__main__":
 
     flat_preds = []
     for pred_seq, label_seq in zip(preds, raw_pred.label_ids):
-        for p, l in zip(pred_seq, label_seq):
-            if l != -100:
+        for p, lbl in zip(pred_seq, label_seq):
+            if lbl != -100:
                 flat_preds.append(id2label[p])
 
     print("\nModelin test verisi tahminlerindeki etiket dağılımı:")

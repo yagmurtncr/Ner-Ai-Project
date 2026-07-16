@@ -64,7 +64,7 @@ for label in target_labels:
 with open(output_file, "w", encoding="utf-8", newline='') as f:
     writer = csv.writer(f)
     writer.writerow(["sentence_id", "token", "label"])
-    for new_sid, (old_sid, tokens) in enumerate(selected, 1):
+    for new_sid, (_old_sid, tokens) in enumerate(selected, 1):
         for token, label in tokens:
             writer.writerow([new_sid, token, label])
 

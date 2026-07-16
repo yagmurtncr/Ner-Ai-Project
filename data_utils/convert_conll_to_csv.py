@@ -1,7 +1,8 @@
 import csv
 
+
 def conll_to_csv(conll_file, csv_file):
-    with open(conll_file, 'r', encoding='utf-8') as f:
+    with open(conll_file, encoding='utf-8') as f:
         lines = f.readlines()
 
     data = []

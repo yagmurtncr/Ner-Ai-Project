@@ -19,7 +19,6 @@ def are_similar_entities(e1, e2):
 
 # Gelişmiş postprocess: Ardışık sayısal tokenları birleştirip, TCNO/PHONE bloklarını tam ve doğru şekilde etiketler.
 def postprocess_entities(entities):
-    import re
     merged = []
     i = 0
     n = len(entities)
@@ -27,7 +26,7 @@ def postprocess_entities(entities):
         ent = entities[i]
         word_raw = ent["word"]
         word = word_raw.replace(" ", "").replace("-", "")
-        digits = re.sub(r"\D", "", word)
+        re.sub(r"\D", "", word)
         is_numeric = bool(re.fullmatch(r"[\d\+\-]+", word))
 
         # Eğer sayısal blok başlıyorsa, ardışık tüm sayısal tokenları birleştir
@@ -41,7 +40,7 @@ def postprocess_entities(entities):
             while j < n:
                 next_ent = entities[j]
                 next_word = next_ent["word"].replace(" ", "").replace("-", "")
-                next_digits = re.sub(r"\D", "", next_word)
+                re.sub(r"\D", "", next_word)
                 next_is_numeric = bool(re.fullmatch(r"[\d\+\-]+", next_word))
                 # Arada O veya sayısal entity varsa birleştir
                 if next_is_numeric and next_ent["start"] == end:

@@ -1,23 +1,21 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
-import numpy as np
-import os
-import datetime
 import json
+import os
 import traceback
-import scipy.special
 
-from sklearn.metrics import precision_recall_curve, f1_score, confusion_matrix, accuracy_score
-from transformers import Trainer, AutoModelForTokenClassification
-from preprocess import get_tokenized_datasets
+import numpy as np
+import pandas as pd
+import scipy.special
 from seqeval.metrics import classification_report as seqeval_report
+from transformers import AutoModelForTokenClassification, Trainer
+
+from preprocess import get_tokenized_datasets
+
 
 def evaluate_per_entity_thresholds(probabilities, true_labels, label_list, threshold_list=None):
     if threshold_list is None:
         threshold_list = [round(i * 0.05, 2) for i in range(1, 21)]
 
-    entity_types = sorted(set(label.split("-")[-1] for label in label_list if label != 'O'))
+    entity_types = sorted({label.split("-")[-1] for label in label_list if label != 'O'})
     best_thresholds = {}
 
     for entity in entity_types:
