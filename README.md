@@ -9,46 +9,49 @@
   <img src="https://img.shields.io/badge/License-MIT-green.svg" />
 </p>
 
-> **Turkish Named-Entity Recognition (NER) & AI text generation platform** — fine-tuned BERT
+> **Turkish Named-Entity Recognition (NER) & AI text-generation platform** — fine-tuned BERT
 > with entity-specific threshold optimization, a FastAPI web UI, OpenAI GPT-based synthetic
-> data generation, and rich evaluation/visualization tools. *Documentation below is in Turkish.*
+> data generation, and rich evaluation/visualization tools.
 
-Türkçe metinler için gelişmiş Varlık İsmi Tanıma (NER) ve yapay zeka destekli cümle üretim platformu. Fine-tuned BERT modeli, varlık-spesifik eşik optimizasyonu, FastAPI web arayüzü, OpenAI GPT entegrasyonu ve kapsamlı görselleştirme araçları içerir.
-
----
-
-## 📋 İçindekiler
-- [🎯 Genel Bakış](#genel-bakış)
-- [✨ Özellikler](#özellikler)
-- [🚀 Kurulum](#kurulum)
-- [💻 Kullanım](#kullanım)
-- [📁 Klasör Yapısı](#klasör-yapısı)
+An advanced Turkish Named-Entity Recognition (NER) and AI-assisted sentence-generation
+platform. It combines a fine-tuned BERT model, entity-specific threshold optimization, a
+FastAPI web interface, OpenAI GPT integration, and comprehensive visualization tools.
 
 ---
 
-## 🎯 Genel Bakış
-Bu proje son teknoloji Türkçe NER sistemi sunar:
-- ✅ Varlık-spesifik eşik optimizasyonu
-- 🌐 Etkileşimli web arayüzü (FastAPI)
-- 🤖 OpenAI GPT ile sentetik cümle üretimi
-- 🐳 Docker ile kolay dağıtım
-- 📊 Kapsamlı değerlendirme ve görselleştirme araçları
-
-Araştırmacılar, geliştiriciler ve gelişmiş NER yetenekleri arayan kurumlar için tasarlanmıştır.
+## 📋 Table of Contents
+- [🎯 Overview](#-overview)
+- [✨ Features](#-features)
+- [🚀 Installation](#-installation)
+- [💻 Usage](#-usage)
+- [📁 Project Structure](#-project-structure)
 
 ---
 
-## ✨ Özellikler
-- **🧠 Fine-tuned BERT NER**: Türkçe metinlerde PERSON, ORG, TCNO, PHONE ve DATE varlıklarını tanır
-- **🎯 Varlık-spesifik Eşikleme**: Her varlık türü için precision/recall optimizasyonu
-- **🌐 FastAPI Web Arayüzü**: Kullanıcı dostu, etkileşimli NER ve metin üretim uygulaması
-- **🤖 OpenAI GPT Entegrasyonu**: Gerçekçi, sentetik Türkçe cümleler üretir
-- **📊 Görselleştirme Araçları**: PR eğrileri, karmaşıklık matrisleri ve eşik analizleri
-- **🐳 Docker Desteği**: Herhangi bir ortamda sorunsuz dağıtım
+## 🎯 Overview
+This project provides a state-of-the-art Turkish NER system:
+- ✅ Entity-specific threshold optimization
+- 🌐 Interactive web interface (FastAPI)
+- 🤖 Synthetic sentence generation with OpenAI GPT
+- 🐳 Easy deployment with Docker
+- 📊 Comprehensive evaluation and visualization tools
+
+It is designed for researchers, developers, and organizations that need advanced NER
+capabilities.
 
 ---
 
-## 🏗️ Mimari (Architecture)
+## ✨ Features
+- **🧠 Fine-tuned BERT NER**: recognizes PERSON, ORG, TCNO, PHONE and DATE entities in Turkish text
+- **🎯 Entity-specific thresholding**: precision/recall optimization per entity type
+- **🌐 FastAPI web interface**: a user-friendly, interactive NER and text-generation app
+- **🤖 OpenAI GPT integration**: generates realistic synthetic Turkish sentences
+- **📊 Visualization tools**: PR curves, confusion matrices and threshold analyses
+- **🐳 Docker support**: seamless deployment in any environment
+
+---
+
+## 🏗️ Architecture
 
 ```mermaid
 flowchart LR
@@ -72,94 +75,107 @@ flowchart LR
 
 ---
 
-## 🚀 Kurulum
+## 🚀 Installation
 
-1. **Depoyu klonlayın:**
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/yagmurtncr/Ner-Ai-Project.git
    cd Ner-Ai-Project
    ```
 
-2. **Sanal ortam oluşturun (önerilen):**
+2. **Create a virtual environment (recommended):**
    ```bash
    python -m venv ner-env
-   ner-env\Scripts\activate    # Windows
-   # veya
+   ner-env\Scripts\activate     # Windows
+   # or
    source ner-env/bin/activate  # Linux/Mac
    ```
 
-3. **Bağımlılıkları yükleyin:**
+3. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **OpenAI API anahtarını ayarlayın:**
+4. **Set your OpenAI API key:**
    ```bash
-   # .env dosyası oluşturun ve API anahtarınızı ekleyin
+   # create a .env file and add your API key
    echo "OPENAI_API_KEY=your_api_key_here" > .env
    ```
 
-5. **Docker ile çalıştırın (isteğe bağlı):**
+5. **Run with Docker (optional):**
    ```bash
    docker-compose up --build
    ```
 
 ---
 
-## 💻 Kullanım
+## 💻 Usage
 
-### 1. 🌐 Web Arayüzünü Başlatın
+### 1. 🌐 Start the web interface
 ```bash
 uvicorn app:app --reload
 ```
-- Tarayıcınızda [http://localhost:8000](http://localhost:8000) adresini açın
-- Metin girin, tespit edilen varlıkları görün ve sentetik cümleler oluşturun
+- Open [http://localhost:8000](http://localhost:8000) in your browser
+- Enter text, view the detected entities, and generate synthetic sentences
 
-### 2. 📊 Model Değerlendirmesi  
+### 2. 📊 Model evaluation
 ```bash
 python evaluate.py
 ```
-- Sonuçlar `visual_results/` klasörüne kaydedilir
+- Results are saved to the `visual_results/` folder
 
-### 3. 🎓 Model Eğitimi
+### 3. 🎓 Model training
 ```bash
 python train_model.py
 ```
 
-### 4. 🔧 Veri İşleme Araçları
+### 4. 🔧 Data-processing tools
 ```bash
-# Veri dengeleme
+# balance the dataset
 python data_utils/balanced_data.py
 
-# ConLL'den CSV'ye dönüştürme  
+# convert CoNLL to CSV
 python data_utils/convert_conll_to_csv.py
 
-# Sahte TC/telefon numarası üretme
+# generate fake TC-ID / phone numbers
 python data_utils/generate_fake_tc_num.py
 ```
 
 ---
 
-## 📁 Klasör Yapısı
+## 📁 Project Structure
 ```
-Ner_Project/
-├── 📄 app.py                 # FastAPI web arayüzü ve backend
-├── 📄 evaluate.py            # Model değerlendirmesi ve eşik analizi  
-├── 📄 train_model.py         # Model eğitimi scripti
-├── 📄 postprocess.py         # NER sonuçları işleme
-├── 📄 preprocessing.py       # Veri ön işleme
-├── 📁 data_utils/            # Veri işleme araçları
-│   ├── balanced_data.py      # Veri dengeleme
-│   ├── convert_conll_to_csv.py # ConLL → CSV dönüştürme
-│   ├── openai_bio_generator.py # OpenAI ile veri üretme
-│   └── generate_fake_tc_num.py # Sahte TC/telefon üretme
-├── 📁 templates/             # HTML şablonları
-├── 📁 raw_data/              # Ham ve işlenmiş veri dosyaları
-├── 📄 requirements.txt       # Python bağımlılıkları
-├── 📄 Dockerfile             # Docker yapılandırması
-└── 📄 docker-compose.yml     # Docker Compose yapılandırması
+Ner-Ai-Project/
+├── 📄 app.py                     # FastAPI web interface and backend
+├── 📄 evaluate.py                # Model evaluation and threshold analysis
+├── 📄 train_model.py             # Model training script
+├── 📄 postprocess.py             # NER result post-processing
+├── 📄 preprocess.py              # Data preprocessing
+├── 📁 data_utils/                # Data-processing tools
+│   ├── balanced_data.py          # dataset balancing
+│   ├── convert_conll_to_csv.py   # CoNLL → CSV conversion
+│   ├── openai_bio_generator.py   # data generation with OpenAI
+│   └── generate_fake_tc_num.py   # fake TC-ID / phone generation
+├── 📁 templates/                 # HTML templates
+├── 📁 tests/                     # unit tests (checksum, BIO, postprocessing)
+├── 📄 requirements.txt           # Python dependencies
+├── 📄 Dockerfile                 # Docker configuration
+└── 📄 docker-compose.yml         # Docker Compose configuration
 ```
 
 ---
 
+## 🧪 Tests & CI
 
+```bash
+ruff check .     # lint
+pytest -q        # unit tests (TC-ID checksum, BIO tagging, NER post-processing)
+```
+
+GitHub Actions runs `ruff` + `pytest` on every push and pull request.
+
+---
+
+## 📄 License
+
+Released under the [MIT License](LICENSE).
